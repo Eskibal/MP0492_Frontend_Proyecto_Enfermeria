@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.mp0492_proyecto_enfermeria.ui.Home
 import com.example.mp0492_proyecto_enfermeria.ui.theme.MP0492_Proyecto_EnfermeriaTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,8 +20,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MP0492_Proyecto_EnfermeriaTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Home(
-                        //name = "Android",
+                    Greeting(
+                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
