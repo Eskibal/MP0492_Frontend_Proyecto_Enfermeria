@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mp0492_proyecto_enfermeria.ui.theme.MP0492_Proyecto_EnfermeriaTheme
 
-class MainActivity : ComponentActivity() {
+class EnfermeriaApplication : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
