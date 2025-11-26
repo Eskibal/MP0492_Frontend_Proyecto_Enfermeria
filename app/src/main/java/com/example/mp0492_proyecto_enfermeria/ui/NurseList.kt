@@ -35,7 +35,7 @@ fun NurseListScreen(nurses: List<Nurse>) {
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(nurses) { nurse ->
-            NurseCard(nurse)
+            NurseList(nurse)
         }
     }
 }
@@ -44,7 +44,7 @@ fun NurseListScreen(nurses: List<Nurse>) {
 // ITEM INDIVIDUAL (UNA TARJETA POR ENFERMERO)
 // ------------------------------------------------------
 @Composable
-fun NurseCard(nurse: Nurse) {
+fun NurseList(nurse: Nurse) {
 
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
