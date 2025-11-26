@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.mp0492_proyecto_enfermeria.ui.Home
 import com.example.mp0492_proyecto_enfermeria.ui.theme.MP0492_Proyecto_EnfermeriaTheme
 
-class EnfermeriaApplication : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,7 +22,6 @@ class EnfermeriaApplication : ComponentActivity() {
             MP0492_Proyecto_EnfermeriaTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Home(
-                        //name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -41,8 +40,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun HomePreview() {
     MP0492_Proyecto_EnfermeriaTheme {
-        Greeting("Android")
+        Home(Modifier)
     }
 }
