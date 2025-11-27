@@ -26,6 +26,7 @@ fun Home(modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxHeight(), Arrangement.Center) {
         when (screen) {
             4 -> Home()
+            2 -> NurseListScreen(sampleNurses)
             1 -> NurseSearchScreen()
         }
     }

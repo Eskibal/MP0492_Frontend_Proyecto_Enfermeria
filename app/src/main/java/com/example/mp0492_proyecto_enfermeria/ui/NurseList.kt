@@ -24,6 +24,14 @@ data class Nurse(
     val phone: String
 )
 
+val sampleNurses = listOf(
+    Nurse(1, "Marc Lopez", "Urgencias", "666 123 456"),
+    Nurse(2, "Jean Patrick", "Pediatría", "654 987 321"),
+    Nurse(3, "Victor Liu", "UCI", "611 333 222"),
+    Nurse(4, "Adam Serroukh", "Quirófano", "622 444 111")
+
+)
+
 // ------------------------------------------------------
 // LISTA PRINCIPAL
 // ------------------------------------------------------
@@ -80,14 +88,5 @@ fun NurseList(nurse: Nurse) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewNurseList() {
-
-    val sampleNurses = listOf(
-        Nurse(1, "Marc Lopez", "Urgencias", "666 123 456"),
-        Nurse(2, "Jean Patrick", "Pediatría", "654 987 321"),
-        Nurse(3, "Victor Liu", "UCI", "611 333 222"),
-        Nurse(4, "Adam Serroukh", "Quirófano", "622 444 111")
-        
-    )
-
     NurseListScreen(nurses = sampleNurses)
 }
