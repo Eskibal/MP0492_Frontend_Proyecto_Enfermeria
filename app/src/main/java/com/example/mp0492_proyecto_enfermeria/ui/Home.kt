@@ -39,7 +39,11 @@ final data class Nurse(
 fun Home(modifier: Modifier = Modifier) {
     var screen by remember { mutableStateOf<Int>(4) }
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Row (modifier = modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center){
+        Row(
+            modifier = modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
             when (screen) {
                 4 -> HomeScreen()
                 3 -> NurseLoginScreen()
@@ -47,7 +51,12 @@ fun Home(modifier: Modifier = Modifier) {
                 1 -> NurseSearchScreen()
             }
         }
-        Row (modifier = modifier.fillMaxSize().padding(50.dp), horizontalArrangement = Arrangement.Center){
+        Row(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(50.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
             Column {
                 Button(onClick = { screen = 4 }) {
                     Text(text = "Home")
@@ -70,12 +79,13 @@ fun Home(modifier: Modifier = Modifier) {
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    Row (modifier = modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center){
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Image(
             painter = painterResource(R.drawable.nurse_image),
-            contentDescription = null
+            contentDescription = null,
+            modifier.size(200.dp)
         )
-        Row {
+        Row(modifier.padding(top = 300.dp), horizontalArrangement = Arrangement.Center) {
             Text(text = "Nurse Application", style = MaterialTheme.typography.titleLarge)
         }
     }
