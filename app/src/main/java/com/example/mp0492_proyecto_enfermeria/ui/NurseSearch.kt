@@ -57,9 +57,9 @@ fun searchNurses(name: String): List<Nurse> {
     if (name.isBlank()) return emptyList()
 
     return listOf(
-        Nurse(id = 1, name = "${name} Johnson", age = 34, speciality = "Pediatrics", phone = "666 123 456"),
-        Nurse(id = 2, name = "${name} Smith", age = 29, speciality = "Emergency Care", phone = "654 987 321"),
-        Nurse(id = 3, name = "${name} Lee", age = 41, speciality = "Oncology", phone = "611 333 222")
+        Nurse(id = 1, name = "${name} Johnson", age = 34, specialty = "Pediatrics", phone = "666 123 456"),
+        Nurse(id = 2, name = "${name} Smith", age = 29, specialty = "Emergency Care", phone = "654 987 321"),
+        Nurse(id = 3, name = "${name} Lee", age = 41, specialty = "Oncology", phone = "611 333 222")
     )
 }
 
@@ -69,7 +69,7 @@ fun NurseCard(nurse: Nurse) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "Name: ${nurse.name}", style = MaterialTheme.typography.titleMedium)
             Text(text = "Age: ${nurse.age}")
-            Text(text = "Speciality: ${nurse.speciality}")
+            Text(text = "Specialty: ${nurse.specialty}")
             Text(text = "Phone Number: ${nurse.phone}")
         }
     }

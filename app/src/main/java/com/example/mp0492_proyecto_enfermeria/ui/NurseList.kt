@@ -65,7 +65,7 @@ fun NurseList(nurse: Nurse) {
             )
 
             Text(
-                text = "Especiality: ${nurse.speciality}",
+                text = "Specialty: ${nurse.specialty}",
                 style = MaterialTheme.typography.bodyMedium
             )
 

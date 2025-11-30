@@ -33,7 +33,7 @@ final data class Nurse(
     val id: Int,
     val name: String,
     val age: Int,
-    val speciality: String,
+    val specialty: String,
     val phone: String
 )
 
