@@ -2,7 +2,8 @@
     <string name="app_name">MP0492_Proyecto_Enfermeria</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="login">Log in</string>
-    <string name="login_message_success">Simulated login successful</string>
-    <string name="login_message_error">Please fill in all fields</string>
+    <string name="login_message_success">Login successful</string>
+    <string name="login_message_error">Login failed</string>
+    <string name="login">Login</string>
+
 </resources>

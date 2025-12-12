@@ -11,13 +11,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mp0492_proyecto_enfermeria.R
+import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
 import androidx.compose.ui.res.colorResource
 
 @Composable
-fun NurseLoginScreen() {
+fun NurseLoginScreen(nurses: List<Nurse>) {
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
@@ -40,6 +41,7 @@ fun NurseLoginScreen() {
                 contentDescription = "Logo",
                 modifier = Modifier.size(100.dp)
             )
+
             OutlinedTextField(
                 value = username,
                 onValueChange = { username = it },
@@ -54,14 +56,11 @@ fun NurseLoginScreen() {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth()
             )
+
             Button(
                 onClick = {
-                    message = if (username.isNotBlank() && password.isNotBlank()) {
-                        successText
-                        // Ir a home
-                    } else {
-                        errorText
-                    }
+                    val found = nurses.any { it.user == username && it.password == password }
+                    message = if (found) successText else errorText
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
@@ -73,6 +72,7 @@ fun NurseLoginScreen() {
                     color = colorResource(R.color.textColor)
                 )
             }
+
             Text(
                 text = message,
                 color = when (message) {
@@ -83,10 +83,4 @@ fun NurseLoginScreen() {
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewNurseLogin() {
-    NurseLoginScreen()
 }
