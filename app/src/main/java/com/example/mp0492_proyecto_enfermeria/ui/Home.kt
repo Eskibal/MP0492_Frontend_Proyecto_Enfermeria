@@ -44,13 +44,20 @@ fun Home(modifier: Modifier = Modifier, viewModel: NurseViewModel = viewModel())
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 35.dp),
+                .padding(top = 20.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             Button(onClick = { screen = 1 }) { Text("Home") }
             Spacer(Modifier.width(10.dp))
             Button(onClick = { screen = 2 }) { Text("Login") }
             Spacer(Modifier.width(10.dp))
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 2.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
             Button(onClick = { screen = 4 }) { Text("Search") }
             Spacer(Modifier.width(10.dp))
             Button(onClick = { screen = 3 }) { Text("Nurses") }
