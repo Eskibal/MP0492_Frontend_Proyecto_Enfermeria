@@ -17,12 +17,13 @@ import com.example.mp0492_proyecto_enfermeria.R
 import com.example.mp0492_proyecto_enfermeria.ui.data.sampleNurses
 
 @Composable
-fun Home(modifier: Modifier = Modifier, viewModel: NurseViewModel = viewModel()) {
+fun Home(modifier: Modifier = Modifier) {
+    val viewModel: NurseViewModel = viewModel()
 
-    var screen by remember { mutableStateOf(1) }
+    val state = viewModel.uiState.collectAsState().value
+    val allNurses = sampleNurses + state.dynamicNurses
 
-    val dynamicNurses by viewModel.nurses.collectAsState()
-    val allNurses = sampleNurses + dynamicNurses
+    var screen by remember { mutableIntStateOf(1) }
 
     Column(
         modifier = modifier

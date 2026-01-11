@@ -12,29 +12,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mp0492_proyecto_enfermeria.R
-import com.example.mp0492_proyecto_enfermeria.ui.data.sampleNurses
-import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 
-class NurseViewModel : ViewModel() {
-
-    private val _nurses = MutableStateFlow<List<Nurse>>(emptyList())
-    val nurses: StateFlow<List<Nurse>> get() = _nurses
-
-    fun registerNurse(name: String, user: String, email: String, password: String) {
-        val newId = sampleNurses.size + _nurses.value.size + 1
-        val newNurse = Nurse(newId, name, user, password, email)
-        _nurses.update { it + newNurse }
-    }
-}
 
 @Composable
-fun NurseRegisterScreen(viewModel: NurseViewModel = viewModel()) {
+fun NurseRegisterScreen(viewModel: NurseViewModel) {
 
     var name by remember { mutableStateOf("") }
     var user by remember { mutableStateOf("") }
