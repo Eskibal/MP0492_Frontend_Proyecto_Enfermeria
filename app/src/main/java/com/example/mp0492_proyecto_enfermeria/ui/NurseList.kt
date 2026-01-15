@@ -12,9 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
+import androidx.compose.runtime.collectAsState
+import com.example.mp0492_proyecto_enfermeria.ui.data.sampleNurses
+
 
 @Composable
-fun NurseListScreen(nurses: List<Nurse>) {
+fun NurseListScreen(viewModel: NurseViewModel) {
+    val uiState = viewModel.uiState.collectAsState().value
+    val nurses = sampleNurses + uiState.dynamicNurses
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()

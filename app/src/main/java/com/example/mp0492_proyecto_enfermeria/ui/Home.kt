@@ -14,14 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mp0492_proyecto_enfermeria.R
-import com.example.mp0492_proyecto_enfermeria.ui.data.sampleNurses
 
 @Composable
 fun Home(modifier: Modifier = Modifier) {
     val viewModel: NurseViewModel = viewModel()
-
-    val state = viewModel.uiState.collectAsState().value
-    val allNurses = sampleNurses + state.dynamicNurses
 
     var screen by remember { mutableIntStateOf(1) }
 
@@ -74,11 +70,12 @@ fun Home(modifier: Modifier = Modifier) {
         ) {
             when (screen) {
                 1 -> HomeScreen()
-                2 -> NurseLoginScreen(allNurses)
-                3 -> NurseListScreen(allNurses)
-                4 -> NurseSearchScreen(allNurses)
+                2 -> NurseLoginScreen(viewModel)
+                3 -> NurseListScreen(viewModel)
+                4 -> NurseSearchScreen(viewModel)
                 5 -> NurseRegisterScreen(viewModel)
             }
+
         }
     }
 }

@@ -13,11 +13,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.mp0492_proyecto_enfermeria.R
-import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
 import androidx.compose.ui.res.colorResource
 
 @Composable
-fun NurseLoginScreen(nurses: List<Nurse>) {
+fun NurseLoginScreen(viewModel: NurseViewModel) {
 
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -59,7 +58,7 @@ fun NurseLoginScreen(nurses: List<Nurse>) {
 
             Button(
                 onClick = {
-                    val found = nurses.any { it.user == username && it.password == password }
+                    val found = viewModel.validateLogin(username, password)
                     message = if (found) successText else errorText
                 },
                 modifier = Modifier.fillMaxWidth(),

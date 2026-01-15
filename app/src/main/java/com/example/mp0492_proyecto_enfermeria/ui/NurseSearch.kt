@@ -7,12 +7,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
 
 @Composable
-fun NurseSearchScreen(allNurses: List<Nurse>) {
+fun NurseSearchScreen(viewModel: NurseViewModel) {
 
     var query by remember { mutableStateOf("") }
     var nurses by remember { mutableStateOf(listOf<Nurse>()) }
@@ -26,15 +25,15 @@ fun NurseSearchScreen(allNurses: List<Nurse>) {
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = {
-                nurses = searchNurses(query, allNurses)
+                nurses = viewModel.searchNurses(query)
             })
         )
 
         Spacer(modifier = Modifier.height(12.dp))
 
         Button(
-            onClick = { nurses = searchNurses(query, allNurses) },
-            modifier = Modifier.fillMaxWidth()
+            onClick = { nurses = viewModel.searchNurses(query) },
+                    modifier = Modifier.fillMaxWidth()
         ) {
             Text("Search")
         }
@@ -53,11 +52,6 @@ fun NurseSearchScreen(allNurses: List<Nurse>) {
     }
 }
 
-fun searchNurses(name: String, allNurses: List<Nurse>): List<Nurse> {
-    if (name.isBlank()) return emptyList()
-    return allNurses.filter { it.name.contains(name, ignoreCase = true) }
-}
-
 @Composable
 fun NurseCard(nurse: Nurse) {
     Card(
@@ -71,10 +65,4 @@ fun NurseCard(nurse: Nurse) {
             Text("Email: ${nurse.email}")
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewSearch() {
-    NurseSearchScreen(emptyList())
 }
