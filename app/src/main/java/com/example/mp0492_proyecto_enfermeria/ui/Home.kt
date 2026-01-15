@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mp0492_proyecto_enfermeria.R
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun Home(modifier: Modifier = Modifier) {
@@ -33,7 +34,7 @@ fun Home(modifier: Modifier = Modifier) {
                 .padding(start = 30.dp)
         ) {
             Text(
-                text = "Nurse Application",
+                text = stringResource(R.string.app_title),
                 style = MaterialTheme.typography.titleLarge
             )
         }
@@ -44,9 +45,9 @@ fun Home(modifier: Modifier = Modifier) {
                 .padding(top = 20.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { screen = 1 }) { Text("Home") }
+            Button(onClick = { screen = 1 }) { Text(stringResource(R.string.home)) }
             Spacer(Modifier.width(10.dp))
-            Button(onClick = { screen = 2 }) { Text("Login") }
+            Button(onClick = { screen = 2 }) { Text(stringResource(R.string.login)) }
             Spacer(Modifier.width(10.dp))
         }
         Row(
@@ -55,11 +56,11 @@ fun Home(modifier: Modifier = Modifier) {
                 .padding(vertical = 2.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { screen = 4 }) { Text("Search") }
+            Button(onClick = { screen = 4 }) { Text(stringResource(R.string.home)) }
             Spacer(Modifier.width(10.dp))
-            Button(onClick = { screen = 3 }) { Text("Nurses") }
+            Button(onClick = { screen = 3 }) { Text(stringResource(R.string.nurses)) }
             Spacer(Modifier.width(10.dp))
-            Button(onClick = { screen = 5 }) { Text("Register") }
+            Button(onClick = { screen = 5 }) { Text(stringResource(R.string.register)) }
         }
 
         Box(

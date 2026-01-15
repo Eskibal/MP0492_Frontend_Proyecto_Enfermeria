@@ -13,6 +13,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.mp0492_proyecto_enfermeria.R
+import androidx.compose.ui.res.stringResource
 
 
 @Composable
@@ -25,6 +26,9 @@ fun NurseRegisterScreen(viewModel: NurseViewModel) {
     var repeatPassword by remember { mutableStateOf("") }
 
     var message by remember { mutableStateOf("") }
+
+    val registerSuccessText = stringResource(R.string.register_success)
+    val registerErrorText = stringResource(R.string.register_error)
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -47,21 +51,21 @@ fun NurseRegisterScreen(viewModel: NurseViewModel) {
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Nombre") },
+                label = { Text(stringResource(R.string.name)) },
                 modifier = Modifier.fillMaxWidth()
             )
 
             OutlinedTextField(
                 value = user,
                 onValueChange = { user = it },
-                label = { Text("Usuario") },
+                label = { Text(stringResource(R.string.user)) },
                 modifier = Modifier.fillMaxWidth()
             )
 
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email") },
+                label = { Text(stringResource(R.string.email)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth()
             )
@@ -69,7 +73,7 @@ fun NurseRegisterScreen(viewModel: NurseViewModel) {
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Contraseña") },
+                label = { Text(stringResource(R.string.password)) },
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth()
             )
@@ -77,7 +81,7 @@ fun NurseRegisterScreen(viewModel: NurseViewModel) {
             OutlinedTextField(
                 value = repeatPassword,
                 onValueChange = { repeatPassword = it },
-                label = { Text("Repetir contraseña") },
+                label = { Text(stringResource(R.string.repeat_password)) },
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth()
             )
@@ -88,14 +92,14 @@ fun NurseRegisterScreen(viewModel: NurseViewModel) {
                         password.isNotBlank() && password == repeatPassword
                     ) {
                         viewModel.registerNurse(name, user, email, password)
-                        message = "Registro completado"
+                        message = registerSuccessText
                     } else {
-                        message = "Error en el registro"
+                        message = registerErrorText
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Registrar")
+                Text(stringResource(R.string.register))
             }
 
             Text(message)

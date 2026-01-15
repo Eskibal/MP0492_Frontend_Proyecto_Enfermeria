@@ -9,6 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
+import com.example.mp0492_proyecto_enfermeria.R
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun NurseSearchScreen(viewModel: NurseViewModel) {
@@ -21,7 +23,7 @@ fun NurseSearchScreen(viewModel: NurseViewModel) {
         OutlinedTextField(
             value = query,
             onValueChange = { query = it },
-            label = { Text("Enter nurse name") },
+            label = { Text(stringResource(R.string.search_hint)) },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = {
@@ -35,13 +37,13 @@ fun NurseSearchScreen(viewModel: NurseViewModel) {
             onClick = { nurses = viewModel.searchNurses(query) },
                     modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Search")
+            Text(stringResource(R.string.search))
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
         if (nurses.isNotEmpty()) {
-            Text(text = "Results:", style = MaterialTheme.typography.titleLarge)
+            Text(stringResource(R.string.results), style = MaterialTheme.typography.titleLarge)
             Spacer(modifier = Modifier.height(8.dp))
 
             nurses.forEach { nurse ->
@@ -60,9 +62,9 @@ fun NurseCard(nurse: Nurse) {
     ) {
         Column(Modifier.padding(16.dp)) {
             Text("ID: ${nurse.idNurse}", style = MaterialTheme.typography.titleMedium)
-            Text("Nombre: ${nurse.name}")
-            Text("Usuario: ${nurse.user}")
-            Text("Email: ${nurse.email}")
+            Text("${stringResource(R.string.name)}: ${nurse.name}")
+            Text("${stringResource(R.string.user)}: ${nurse.user}")
+            Text("${stringResource(R.string.email)}: ${nurse.email}")
         }
     }
 }

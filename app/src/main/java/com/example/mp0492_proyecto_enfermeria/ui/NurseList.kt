@@ -13,6 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
+import com.example.mp0492_proyecto_enfermeria.R
 import com.example.mp0492_proyecto_enfermeria.ui.data.sampleNurses
 
 
@@ -42,8 +44,8 @@ fun NurseListItem(nurse: Nurse) {
     ) {
         Column(Modifier.padding(16.dp)) {
             Text(nurse.name, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium)
-            Text("Usuario: ${nurse.user}")
-            Text("Email: ${nurse.email}")
+            Text("${stringResource(R.string.name)}: ${nurse.user}")
+            Text("${stringResource(R.string.email)}: ${nurse.email}")
         }
     }
 }
