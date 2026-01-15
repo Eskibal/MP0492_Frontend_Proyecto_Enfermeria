@@ -93,7 +93,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             modifier.fillMaxSize().padding(top = 20.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Text("Welcome!", style = MaterialTheme.typography.displayMedium)
+            Text(stringResource(R.string.welcome), style = MaterialTheme.typography.displayMedium)
         }
     }
 }
