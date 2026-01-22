@@ -56,7 +56,7 @@ fun Home(modifier: Modifier = Modifier) {
                 .padding(vertical = 2.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { screen = 4 }) { Text(stringResource(R.string.home)) }
+            Button(onClick = { screen = 4 }) { Text(stringResource(R.string.search)) }
             Spacer(Modifier.width(10.dp))
             Button(onClick = { screen = 3 }) { Text(stringResource(R.string.nurses)) }
             Spacer(Modifier.width(10.dp))
