@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.update
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-
 data class NurseUiState(
     val dynamicNurses: List<Nurse> = emptyList()
 )
@@ -64,8 +63,25 @@ class NurseViewModel : ViewModel() {
 
     fun registerNurse(name: String, user: String, email: String, password: String) {
         val newId = sampleNurses.size + _uiState.value.dynamicNurses.size + 1
-        val newNurse = Nurse(newId, name, user, password, email)
-
+        val newNurse = Nurse(newId, name, user, password, email, "")
         _uiState.update { it.copy(dynamicNurses = it.dynamicNurses + newNurse) }
+    }
+
+    // ✅ Para que el backend pueda “inyectar” la lista al ViewModel
+    fun setDynamicNurses(nurses: List<Nurse>) {
+        _uiState.update { it.copy(dynamicNurses = nurses) }
+    }
+
+
+
+    fun loadNursesFromBackend() {
+        viewModelScope.launch {
+            try {
+                val nursesFromApi = RemoteConnection.endPoints.getAll()
+                _uiState.update { it.copy(dynamicNurses = nursesFromApi) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }
