@@ -29,8 +29,36 @@ class NurseViewModel : ViewModel() {
 
     // ✅ Búsqueda (sin backend)
     fun searchNurses(query: String): List<Nurse> {
+
         if (query.isBlank()) return emptyList()
-        return getAllNurses().filter { it.name.contains(query, ignoreCase = true) }
+
+        // Lanzamos la petición en segundo plano
+        viewModelScope.launch {
+            try {
+                val response =
+                    RemoteConnection.endPoints.findByName(query)
+
+                if (response.isSuccessful && response.body() != null) {
+                    _uiState.update {
+                        it.copy(
+                            dynamicNurses = listOf(response.body()!!)
+                        )
+                    }
+                } else {
+                    _uiState.update {
+                        it.copy(dynamicNurses = emptyList())
+                    }
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(dynamicNurses = emptyList())
+                }
+            }
+        }
+
+        // ⚠️ IMPORTANTE:
+        // devolvemos lo que haya en el estado (Compose se recompone)
+        return uiState.value.dynamicNurses
     }
 
     fun registerNurse(name: String, user: String, email: String, password: String) {
