@@ -8,6 +8,9 @@ interface NurseInterface {
     @GET("nurse/index")
     suspend fun getAll():List<Nurse>
 
+    @GET("nurse/name")
+    suspend fun findByName(@Query("name") name: String): Response<Nurse>
+
     @GET("{requestedId}")
     suspend fun findById(@Path("requestedId") requestedId: Int): Nurse
 
