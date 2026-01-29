@@ -1,5 +1,8 @@
 package com.example.mp0492_proyecto_enfermeria.ui
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.mp0492_proyecto_enfermeria.ui.data.sampleNurses
 import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
@@ -15,19 +18,43 @@ data class NurseUiState(
 )
 
 class NurseViewModel : ViewModel() {
-
     private val _uiState = MutableStateFlow(NurseUiState())
     val uiState: StateFlow<NurseUiState> = _uiState.asStateFlow()
 
     // ✅ Lista unificada (mock + dinámicos)
-    fun getAllNurses(): List<Nurse> = sampleNurses + uiState.value.dynamicNurses
+    fun loadNursesFromBackend(): List<Nurse> {
+        viewModelScope.launch {
+            try {
+                val nursesFromApi = RemoteConnection.endPoints.getAll()
+                _uiState.update { it.copy(dynamicNurses = nursesFromApi) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
 
-    // ✅ Login (sin backend, validación local)
-    fun validateLogin(user: String, password: String): Boolean {
-        return getAllNurses().any { it.user == user && it.password == password }
+        return uiState.value.dynamicNurses
     }
 
-    // ✅ Búsqueda (sin backend)
+    // ✅ Para que el backend pueda “inyectar” la lista al ViewModel
+    fun setDynamicNurses(nurses: List<Nurse>) {
+        _uiState.update { it.copy(dynamicNurses = nurses) }
+    }
+
+    // ✅ Login
+    fun validateLogin(user: String, password: String, result: (Boolean) -> Unit){
+        viewModelScope.launch {
+            try {
+                val response = RemoteConnection.endPoints.login(Nurse(user = user, password = password))
+
+                result(response.isSuccessful && response.body() == true)
+            } catch(e: Exception) {
+                result(false)
+                e.printStackTrace()
+            }
+        }
+    }
+
+    // ✅ Búsqueda
     fun searchNurses(query: String): List<Nurse> {
 
         if (query.isBlank()) return emptyList()
@@ -55,7 +82,6 @@ class NurseViewModel : ViewModel() {
                 }
             }
         }
-
         // ⚠️ IMPORTANTE:
         // devolvemos lo que haya en el estado (Compose se recompone)
         return uiState.value.dynamicNurses
@@ -65,23 +91,5 @@ class NurseViewModel : ViewModel() {
         val newId = sampleNurses.size + _uiState.value.dynamicNurses.size + 1
         val newNurse = Nurse(newId, name, user, password, email, "")
         _uiState.update { it.copy(dynamicNurses = it.dynamicNurses + newNurse) }
-    }
-
-    // ✅ Para que el backend pueda “inyectar” la lista al ViewModel
-    fun setDynamicNurses(nurses: List<Nurse>) {
-        _uiState.update { it.copy(dynamicNurses = nurses) }
-    }
-
-
-
-    fun loadNursesFromBackend() {
-        viewModelScope.launch {
-            try {
-                val nursesFromApi = RemoteConnection.endPoints.getAll()
-                _uiState.update { it.copy(dynamicNurses = nursesFromApi) }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 }

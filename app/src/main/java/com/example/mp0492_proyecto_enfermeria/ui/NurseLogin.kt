@@ -20,6 +20,7 @@ fun NurseLoginScreen(viewModel: NurseViewModel) {
 
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
     var message by remember { mutableStateOf("") }
     val successText = stringResource(R.string.login_message_success)
     val errorText = stringResource(R.string.login_message_error)
@@ -58,8 +59,9 @@ fun NurseLoginScreen(viewModel: NurseViewModel) {
 
             Button(
                 onClick = {
-                    val found = viewModel.validateLogin(username, password)
-                    message = if (found) successText else errorText
+                    viewModel.validateLogin(username, password) {
+                        found -> message = if (found) successText else errorText
+                    }
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
