@@ -11,7 +11,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface NurseInterface {
-    @GET("index")
+    @GET("nurse/index")
     suspend fun getAll():List<Nurse>
 
     @GET("name")
@@ -21,12 +21,13 @@ interface NurseInterface {
     @POST("new")
     suspend fun createNurse(@Body newNurse: Nurse)
 
-    @GET("requestedId")
-    suspend fun findById(@Path("requestedId")requestedId:Int): Nurse
+    @GET("{requestedId}")
+    suspend fun findById(@Path("requestedId") requestedId: Int): Nurse
 
-    @PUT("requestedId")
-    suspend fun putNurse(@Path("requestedId")requestedId:Int, @Body nurseUpdate: Nurse)
+    @PUT("{requestedId}")
+    suspend fun putNurse(@Path("requestedId") requestedId: Int, @Body nurseUpdate: Nurse)
 
-    @DELETE("requestedId")
-    suspend fun delete(@Path("requestedId")requestedId:Int)
+    @DELETE("{requestedId}")
+    suspend fun delete(@Path("requestedId") requestedId: Int)
+
 }

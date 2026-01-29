@@ -5,5 +5,6 @@ data class Nurse(
     val name: String = "",
     val user: String = "",
     val password: String = "",
-    val email: String = ""
+    val email: String = "",
+    val imageUrl: String = ""// Image
 )
