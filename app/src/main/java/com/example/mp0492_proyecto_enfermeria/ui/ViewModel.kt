@@ -87,9 +87,34 @@ class NurseViewModel : ViewModel() {
         return uiState.value.dynamicNurses
     }
 
-    fun registerNurse(name: String, user: String, email: String, password: String) {
-        val newId = sampleNurses.size + _uiState.value.dynamicNurses.size + 1
-        val newNurse = Nurse(newId, name, user, password, email, "")
-        _uiState.update { it.copy(dynamicNurses = it.dynamicNurses + newNurse) }
+    fun registerNurse(
+        name: String,
+        user: String,
+        email: String,
+        password: String,
+        result: (Boolean) -> Unit
+    ) {
+        viewModelScope.launch {
+            try {
+                val newNurse = Nurse(
+                    name = name,
+                    user = user,
+                    password = password,
+                    email = email
+                )
+
+                val response = RemoteConnection.endPoints.createNurse(newNurse)
+
+                if (response.isSuccessful) {
+                    _uiState.update { it.copy(dynamicNurses = it.dynamicNurses + newNurse) }
+                    result(true)
+                } else {
+                    result(false)
+                }
+            } catch (e: Exception) {
+                result(false)
+                e.printStackTrace()
+            }
+        }
     }
 }
