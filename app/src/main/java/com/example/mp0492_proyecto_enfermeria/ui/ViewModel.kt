@@ -21,7 +21,7 @@ class NurseViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(NurseUiState())
     val uiState: StateFlow<NurseUiState> = _uiState.asStateFlow()
 
-    // ✅ Lista unificada (mock + dinámicos)
+    // Lista unificada (mock + dinámicos)
     fun loadNursesFromBackend(): List<Nurse> {
         viewModelScope.launch {
             try {
@@ -35,12 +35,12 @@ class NurseViewModel : ViewModel() {
         return uiState.value.dynamicNurses
     }
 
-    // ✅ Para que el backend pueda “inyectar” la lista al ViewModel
+    // Para que el backend pueda “inyectar” la lista al ViewModel
     fun setDynamicNurses(nurses: List<Nurse>) {
         _uiState.update { it.copy(dynamicNurses = nurses) }
     }
 
-    // ✅ Login
+    // Login
     fun validateLogin(user: String, password: String, result: (Boolean) -> Unit){
         viewModelScope.launch {
             try {
@@ -54,7 +54,7 @@ class NurseViewModel : ViewModel() {
         }
     }
 
-    // ✅ Búsqueda
+    // Búsqueda
     fun searchNurses(query: String): List<Nurse> {
 
         if (query.isBlank()) return emptyList()
@@ -82,11 +82,12 @@ class NurseViewModel : ViewModel() {
                 }
             }
         }
-        // ⚠️ IMPORTANTE:
+        // IMPORTANTE:
         // devolvemos lo que haya en el estado (Compose se recompone)
         return uiState.value.dynamicNurses
     }
 
+    // Register
     fun registerNurse(
         name: String,
         user: String,

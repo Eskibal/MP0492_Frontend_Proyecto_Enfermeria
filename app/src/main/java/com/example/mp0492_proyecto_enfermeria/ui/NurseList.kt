@@ -24,7 +24,7 @@ import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
 @Composable
 fun NurseListScreen(viewModel: NurseViewModel) {
 
-    // ✅ Llamada al backend al entrar
+    // Llamada al backend al entrar
     LaunchedEffect(Unit) {
         viewModel.loadNursesFromBackend()
     }
@@ -74,7 +74,7 @@ fun NurseListItem(nurse: Nurse) {
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            // ✅ Misma imagen para todos (placeholder local)
+            // Misma imagen para todos (placeholder local)
             val placeholderRes = R.drawable.nurse2
 
             if (nurse.imageUrl.isNotBlank()) {
