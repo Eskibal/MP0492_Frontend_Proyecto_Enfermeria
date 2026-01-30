@@ -14,7 +14,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.mp0492_proyecto_enfermeria.R
 import androidx.compose.ui.res.stringResource
-
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.imePadding
 
 @Composable
 fun NurseRegisterScreen(viewModel: NurseViewModel) {
@@ -34,14 +36,17 @@ fun NurseRegisterScreen(viewModel: NurseViewModel) {
         modifier = Modifier.fillMaxSize(),
         color = colorResource(R.color.backgroundColor)
     ) {
+        val scrollState = rememberScrollState()
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
+                .padding(24.dp)
+                .verticalScroll(scrollState)
+                .imePadding(),
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Image(
                 painter = painterResource(R.drawable.ic_launcher_foreground),
                 contentDescription = null,
@@ -91,8 +96,9 @@ fun NurseRegisterScreen(viewModel: NurseViewModel) {
                     if (name.isNotBlank() && user.isNotBlank() && email.isNotBlank() &&
                         password.isNotBlank() && password == repeatPassword
                     ) {
-                        viewModel.registerNurse(name, user, email, password)
-                        message = registerSuccessText
+                        viewModel.registerNurse(name, user, email, password) { ok ->
+                            message = if (ok) registerSuccessText else registerErrorText
+                        }
                     } else {
                         message = registerErrorText
                     }
