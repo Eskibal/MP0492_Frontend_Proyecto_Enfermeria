@@ -1,6 +1,7 @@
 package com.example.mp0492_proyecto_enfermeria.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -14,9 +15,15 @@ import com.example.mp0492_proyecto_enfermeria.R
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun NurseLoginScreen(viewModel: NurseViewModel) {
+fun NurseLoginScreen(viewModel: NurseViewModel, navController: NavController, modifier: Modifier = Modifier) {
 
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -25,63 +32,80 @@ fun NurseLoginScreen(viewModel: NurseViewModel) {
     val successText = stringResource(R.string.login_message_success)
     val errorText = stringResource(R.string.login_message_error)
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = colorResource(R.color.backgroundColor)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = colorResource(R.color.backgroundColor)
         ) {
-            Image(
-                painter = painterResource(R.drawable.ic_launcher_foreground),
-                contentDescription = "Logo",
-                modifier = Modifier.size(100.dp)
-            )
-
-            OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                label = { Text(stringResource(R.string.username)) },
-                modifier = Modifier.fillMaxWidth()
-            )
-            OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text(stringResource(R.string.password)) },
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Button(
-                onClick = {
-                    viewModel.validateLogin(username, password) {
-                        found -> message = if (found) successText else errorText
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(R.color.buttonColor)
-                )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = stringResource(R.string.login),
-                    color = colorResource(R.color.textColor)
+                Image(
+                    painter = painterResource(R.drawable.ic_launcher_foreground),
+                    contentDescription = "Logo",
+                    modifier = Modifier.size(100.dp)
                 )
-            }
 
-            Text(
-                text = message,
-                color = when (message) {
-                    successText -> colorResource(R.color.successColor)
-                    errorText -> colorResource(R.color.errorColor)
-                    else -> colorResource(R.color.textColor)
+                OutlinedTextField(
+                    value = username,
+                    onValueChange = { username = it },
+                    label = { Text(stringResource(R.string.username)) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text(stringResource(R.string.password)) },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Button(
+                    onClick = {
+                        viewModel.validateLogin(username, password) { ok ->
+                            if (ok) {
+                                message = successText
+                                navController.navigate("LoggedHome")
+                            } else {
+                                message = errorText
+                            }
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(R.color.buttonColor)
+                    )
+                )
+                {
+                    Text(
+                        text = stringResource(R.string.login),
+                        color = colorResource(R.color.textColor)
+                    )
                 }
-            )
+
+                Text(
+                    text = message,
+                    color = when (message) {
+                        successText -> colorResource(R.color.successColor)
+                        errorText -> colorResource(R.color.errorColor)
+                        else -> colorResource(R.color.textColor)
+                    }
+                )
+
+                Button(
+                    onClick = { navController.navigate("NurseRegisterScreen") },
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = colorResource(R.color.buttonColor),
+                        containerColor = colorResource(R.color.alpha)
+                    )
+                ) { Text(stringResource(R.string.register_new)) }
+            }
         }
-    }
 }
+
+
+

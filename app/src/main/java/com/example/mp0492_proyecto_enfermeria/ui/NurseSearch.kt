@@ -1,10 +1,12 @@
 package com.example.mp0492_proyecto_enfermeria.ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -18,7 +20,11 @@ fun NurseSearchScreen(viewModel: NurseViewModel) {
     var query by remember { mutableStateOf("") }
     var nurses by remember { mutableStateOf(listOf<Nurse>()) }
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(modifier = Modifier
+        .fillMaxHeight()
+        .padding(16.dp),
+        Arrangement.Center,
+        Alignment.CenterHorizontally) {
 
         OutlinedTextField(
             value = query,

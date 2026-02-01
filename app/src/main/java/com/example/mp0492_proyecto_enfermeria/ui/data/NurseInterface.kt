@@ -1,4 +1,4 @@
-package com.example.mp0492_proyecto_enfermeria.ui
+package com.example.mp0492_proyecto_enfermeria.ui.data
 
 import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
 import retrofit2.Response
@@ -51,18 +51,18 @@ interface NurseInterface {
     // FIND BY ID
     // GET /nurse/{requestedId}
     // =========================
-    @GET("nurse/{requestedId}")
+    @GET("nurse/{id}")
     suspend fun findById(
-        @Path("requestedId") requestedId: Int
+        @Path("id") requestedId: Int
     ): Response<Nurse>
 
     // =========================
     // UPDATE NURSE
     // PUT /nurse/{requestedId}
     // =========================
-    @PUT("nurse/{requestedId}")
-    suspend fun putNurse(
-        @Path("requestedId") requestedId: Int,
+    @PUT("nurse/{id}")
+    suspend fun updateNurse(
+        @Path("id") requestedId: Int,
         @Body nurseUpdate: Nurse
     ): Response<Void>
 
@@ -70,8 +70,8 @@ interface NurseInterface {
     // DELETE NURSE
     // DELETE /nurse/{requestedId}
     // =========================
-    @DELETE("nurse/{requestedId}")
-    suspend fun delete(
-        @Path("requestedId") requestedId: Int
+    @DELETE("nurse/{id}")
+    suspend fun deleteNurse(
+        @Path("id") requestedId: Int
     ): Response<Void>
 }

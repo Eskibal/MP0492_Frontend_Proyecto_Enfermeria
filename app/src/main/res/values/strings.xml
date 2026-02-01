@@ -3,6 +3,7 @@
     <string name="app_name">MP0492_Proyecto_Enfermeria</string>
     <string name="app_title">Nurse Application</string>
     <string name="welcome">Welcome!</string>
+    <string name="welcome2">Welcome Back!</string>
 
     <!-- Login -->
     <string name="username">Username</string>
@@ -10,12 +11,13 @@
     <string name="login">Login</string>
     <string name="login_message_success">Login successful</string>
     <string name="login_message_error">Login failed</string>
+    <string name="register_new">Register new Nurse</string>
 
     <!-- Home buttons -->
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="nurses">Nurses</string>
-    <string name="register">Register</string>
+    <string name="profile">Profile</string>
 
     <!-- Search -->
     <string name="search_hint">Enter nurse name</string>
@@ -30,5 +32,10 @@
     <string name="repeat_password">Repeat password</string>
     <string name="register_success">Registration completed</string>
     <string name="register_error">Registration error</string>
+    <string name="register">Register</string>
 
+    <!-- Profile -->
+    <string name="delete">Delete nurse</string>
+    <string name="update">Manage nurse</string>
+    <string name="logout">Logout</string>
 </resources>
