@@ -1,4 +1,4 @@
-package com.example.mp0492_proyecto_enfermeria.ui
+package com.example.mp0492_proyecto_enfermeria.ui.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

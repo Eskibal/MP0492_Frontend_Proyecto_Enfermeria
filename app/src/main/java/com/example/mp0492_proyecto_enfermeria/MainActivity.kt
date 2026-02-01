@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mp0492_proyecto_enfermeria.ui.Home
+import com.example.mp0492_proyecto_enfermeria.ui.LoggedHome
 import com.example.mp0492_proyecto_enfermeria.ui.theme.MP0492_Proyecto_EnfermeriaTheme
 
 class MainActivity : ComponentActivity() {

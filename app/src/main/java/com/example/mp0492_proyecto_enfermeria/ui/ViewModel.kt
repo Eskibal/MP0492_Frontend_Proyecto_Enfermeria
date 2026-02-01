@@ -1,16 +1,17 @@
 package com.example.mp0492_proyecto_enfermeria.ui
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.mp0492_proyecto_enfermeria.ui.data.sampleNurses
 import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import androidx.lifecycle.viewModelScope
+import com.example.mp0492_proyecto_enfermeria.ui.data.RemoteConnection
 import kotlinx.coroutines.launch
 
 data class NurseUiState(
@@ -20,6 +21,8 @@ data class NurseUiState(
 class NurseViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(NurseUiState())
     val uiState: StateFlow<NurseUiState> = _uiState.asStateFlow()
+    var loggedNurse by mutableStateOf<Nurse?>(null)
+        internal set
 
     // Lista unificada (mock + dinámicos)
     fun loadNursesFromBackend(): List<Nurse> {
@@ -44,12 +47,23 @@ class NurseViewModel : ViewModel() {
     fun validateLogin(user: String, password: String, result: (Boolean) -> Unit){
         viewModelScope.launch {
             try {
-                val response = RemoteConnection.endPoints.login(Nurse(user = user, password = password))
+                val response = RemoteConnection.endPoints.login(
+                    Nurse(user = user, password = password)
+                )
 
-                result(response.isSuccessful && response.body() == true)
-            } catch(e: Exception) {
+                if (response.isSuccessful && response.body() == true) {
+                    val all = RemoteConnection.endPoints.getAll()
+
+                    loggedNurse = all.find { it.user == user }
+
+                    result(loggedNurse != null)
+
+                } else {
+                    result(false)
+                }
+
+            } catch (e: Exception) {
                 result(false)
-                e.printStackTrace()
             }
         }
     }
@@ -115,6 +129,54 @@ class NurseViewModel : ViewModel() {
             } catch (e: Exception) {
                 result(false)
                 e.printStackTrace()
+            }
+        }
+    }
+
+    // Info Nurse
+    fun loadNurseProfile(id: Int, result: (Nurse?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val response = RemoteConnection.endPoints.findById(id)
+
+                if (response.isSuccessful) {
+                    result(response.body())
+                } else {
+                    result(null)
+                }
+
+            } catch (e: Exception) {
+                result(null)
+            }
+        }
+    }
+
+    // Actualizar Nurse
+    fun updateNurse(nurse: Nurse, result: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val response =
+                    RemoteConnection.endPoints.updateNurse(nurse.idNurse, nurse)
+
+                result(response.isSuccessful)
+
+            } catch (e: Exception) {
+                result(false)
+            }
+        }
+    }
+
+    // Eliminar Nurse
+    fun deleteNurse(id: Int, result: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val response =
+                    RemoteConnection.endPoints.deleteNurse(id)
+
+                result(response.isSuccessful)
+
+            } catch (e: Exception) {
+                result(false)
             }
         }
     }

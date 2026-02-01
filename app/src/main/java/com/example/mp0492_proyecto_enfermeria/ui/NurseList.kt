@@ -2,6 +2,7 @@ package com.example.mp0492_proyecto_enfermeria.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -22,7 +23,7 @@ import com.example.mp0492_proyecto_enfermeria.R
 import com.example.mp0492_proyecto_enfermeria.ui.model.Nurse
 
 @Composable
-fun NurseListScreen(viewModel: NurseViewModel) {
+fun NurseListScreen(viewModel: NurseViewModel, modifier: Modifier = Modifier) {
 
     // Llamada al backend al entrar
     LaunchedEffect(Unit) {
@@ -31,13 +32,12 @@ fun NurseListScreen(viewModel: NurseViewModel) {
 
     val uiState = viewModel.uiState.collectAsState().value
     val nurses = uiState.dynamicNurses
-
     if (nurses.isEmpty()) {
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .padding(16.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = "Loading nurses from backend...",
@@ -49,20 +49,21 @@ fun NurseListScreen(viewModel: NurseViewModel) {
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center
     ) {
         items(
             items = nurses,
             key = { it.idNurse }
         ) { nurse ->
-            NurseListItem(nurse)
+            NurseItem(nurse)
         }
     }
 }
 
 @Composable
-fun NurseListItem(nurse: Nurse) {
+fun NurseItem(nurse: Nurse) {
     Card(
         elevation = CardDefaults.cardElevation(8.dp),
         modifier = Modifier
