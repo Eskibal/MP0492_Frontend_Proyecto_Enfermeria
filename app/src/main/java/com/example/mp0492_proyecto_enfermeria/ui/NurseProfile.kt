@@ -148,7 +148,7 @@ fun UpdateNurseScreen(viewModel: NurseViewModel, nurse: Nurse, onFinish: () -> U
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(horizontal = 16.dp, vertical = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
